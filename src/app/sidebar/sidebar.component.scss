@@ -27,10 +27,12 @@
     pointer-events: none;
   }
 
+
+
   .add-db {
-    position: fixed;
+
     bottom: 0;
-    z-index: 5;
+    z-index: 500;
     background-color: lighten($color: #2D3E49, $amount: 3%);
     padding: 15px 14px 15px 15px;
     width: 260px;
@@ -97,3 +99,6 @@
   padding: 0 8px;
 }
 
+.grid-container {
+
+}
