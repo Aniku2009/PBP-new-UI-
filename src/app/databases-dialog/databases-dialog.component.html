@@ -1,0 +1,19 @@
+<div>
+  <mcr-dialog #dialog
+              [modal]="dialogModalConfiguration.modal"
+              [headerTitle]="dialogModalConfiguration.headerTitle"
+              [widthOfDialog]="dialogModalConfiguration.widthOfDialog"
+              [heightOfDialog]="dialogModalConfiguration.heightOfDialog"
+              [type]="dialogModalConfiguration.type"
+              [resizable]="dialogModalConfiguration.resizable"
+              [isClosable]="dialogModalConfiguration.isClosable"
+              [isCloseOnEscape]="dialogModalConfiguration.isCloseOnEscape">
+    <div class="mcr-dialog-body">
+      <div>{{dialogModalConfiguration.message}}</div>
+    </div>
+    <div class="mcr-dialog-footer">
+      <mcr-button [size]="'big'" [type]="'primary'" [text]="'Ok'"
+                  (click)="interactionsService.showManageDBsDialog = false"></mcr-button>
+    </div>
+  </mcr-dialog>
+</div>

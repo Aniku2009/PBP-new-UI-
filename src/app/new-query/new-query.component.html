@@ -1,0 +1,29 @@
+<div>
+    <mcr-dialog #dialog
+                [modal]="dialogModalConfiguration.modal"
+                [headerTitle]="dialogModalConfiguration.headerTitle"
+                [widthOfDialog]="dialogModalConfiguration.widthOfDialog"
+                [heightOfDialog]="dialogModalConfiguration.heightOfDialog"
+                [type]="dialogModalConfiguration.type"
+                [resizable]="dialogModalConfiguration.resizable"
+                [isClosable]="dialogModalConfiguration.isClosable"
+                [isCloseOnEscape]="dialogModalConfiguration.isCloseOnEscape">
+      <div class="mcr-dialog-body">
+        <div>{{dialogModalConfiguration.message}}</div>
+      </div>
+      <div class="mcr-dialog-footer">
+        <mcr-button [size]="'big'" [type]="'primary'" [text]="'Ok'"
+                    (click)="interactionsService.showNewQueryDialog = false"></mcr-button>
+      </div>
+    </mcr-dialog>
+  </div>
+
+<!--<p>
+  here should be mcr dialog box with:<br/>
+    - db name<br/>
+
+    - input field for new query name<br/>
+    - mcr date range for start date and end date<br/>
+
+    *here is no query id (back end will add it)<br/>
+</p>-->

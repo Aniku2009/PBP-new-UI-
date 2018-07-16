@@ -1,0 +1,26 @@
+<div class="bg-container"></div>
+
+<div class="flex flex-direction-column">
+  <div class="top-bar-container">
+    <mcr-top-bar [title]="'Playback portal'" [applications]="" [topBarListLabel]="'John Doe'"
+               [actions]=""
+               [iconPath]="'assets/svgs/PP-icon.svg'"></mcr-top-bar>
+  </div>
+
+  <div class="sidebar-container">
+    <pbp-sidebar>Loading...</pbp-sidebar>
+  </div>
+
+  <div class="results-container">
+    <pbp-query-results>Loading...</pbp-query-results>
+  </div>
+
+  <div class="new-query-container" *ngIf="interactionsService.showNewQueryDialog">
+    <pbp-new-query [showDialog]="interactionsService.showNewQueryDialog"></pbp-new-query>
+  </div>
+
+  <div class="add-db-container" *ngIf="interactionsService.showManageDBsDialog">
+    <pbp-databases-dialog [showDialog]="interactionsService.showManageDBsDialog"></pbp-databases-dialog>
+  </div>
+
+</div>

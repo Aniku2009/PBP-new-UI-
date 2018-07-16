@@ -1,0 +1,93 @@
+@import "~mcr-components/assets/styles/mcr";
+
+//@import "~mcr-components/assets/sprites/sprite";
+//@import "~mcr-components/assets/web-fonts/ui-icons";
+//
+////@import "./assets/sprites/sprite.scss";
+////@import "./assets/web-fonts/ui-icons";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+//
+//@include sprites($spritesheet-sprites);
+//[class*="ui-icons"] {
+// @extend %ui-icons;
+//}
+//
+//[class*="ui-icons-"] {
+//  display: inline-block;
+//  font-family: ui-icons;
+//  font-style: normal;
+//  i:before {
+//    font-family: ui-icons !important;
+//    font-style: normal;
+//    font-weight: normal !important;
+//    vertical-align: top;
+//  }
+//}
+//
+//[class*="icon-"] {
+//  display: inline-block;
+//}
+//
+//html {
+//  height: 100%;
+//  font-family: 'Open Sans', sans-serif;
+//
+//  body {
+//    height: 100%;
+//    font-family: 'Open Sans', sans-serif;
+//  }
+//}
+//
+//@font-face {
+//  font-family: "Open Sans Regular";
+//  src: url('/assets/fonts/OpenSans-Regular.eot');
+//  src: url('/assets/fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+//  url('/assets/fonts/OpenSans-Regular.woff') format('woff'),
+//  url('/assets/fonts/OpenSans-Regular.ttf') format('truetype');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+
+html, body {
+  height: 100%;
+  min-width: 1024px;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+input:focus {
+  outline: none;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-space-between {
+  justify-content: space-between;
+}
+
+.flex-start {
+  justify-content: flex-start;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+mcr-grid {
+  .grid-dropdown-arrow,
+  .grid-up-arrow {
+    vertical-align: middle;
+  }
+
+  .ag-cell {
+    font-size: 14px;
+  }
+}

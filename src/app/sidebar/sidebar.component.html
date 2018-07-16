@@ -1,0 +1,13 @@
+<div class="db-list">
+
+  <div *ngFor="let db of interactionsService.legacySites">
+    <pbp-database *ngIf="db.db_state === DBState.Mapped"
+                  [database]="db"></pbp-database>
+  </div>
+
+  <div class="add-db" (click)="interactionsService.showManageDBsDialog = true">
+      Manage databases
+      <img class="icon icon-add-db" src="assets/svgs/Settings.svg" alt="Add new database"/>
+  </div>
+
+</div>
