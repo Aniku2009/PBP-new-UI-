@@ -1,19 +1,52 @@
-<div>
-  <mcr-dialog #dialog
-              [modal]="dialogModalConfiguration.modal"
-              [headerTitle]="dialogModalConfiguration.headerTitle"
-              [widthOfDialog]="dialogModalConfiguration.widthOfDialog"
-              [heightOfDialog]="dialogModalConfiguration.heightOfDialog"
-              [type]="dialogModalConfiguration.type"
-              [resizable]="dialogModalConfiguration.resizable"
-              [isClosable]="dialogModalConfiguration.isClosable"
-              [isCloseOnEscape]="dialogModalConfiguration.isCloseOnEscape">
-    <div class="mcr-dialog-body">
-      <div>{{dialogModalConfiguration.message}}</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Manage Data</h4>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Generic/8.9</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">NIM4.1 Legacy operational</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">NIM4.1 Legacy</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="grid-container">
+                <mcr-grid [columnDefs]="gridHeaders"
+                          [rowData]="interactionsService.getRowData()"
+                          [gridOptions]="gridOptions"></mcr-grid>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="grid-container">
+                <mcr-grid [columnDefs]="gridHeaders"
+                          [rowData]="interactionsService.queryResults"
+                          [gridOptions]="gridOptions"></mcr-grid>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+              <div class="grid-container">
+                <mcr-grid [columnDefs]="gridHeaders"
+                          [rowData]="interactionsService.queryResults"
+                          [gridOptions]="gridOptions"></mcr-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
     </div>
-    <div class="mcr-dialog-footer">
-      <mcr-button [size]="'big'" [type]="'primary'" [text]="'Ok'"
-                  (click)="interactionsService.showManageDBsDialog = false"></mcr-button>
-    </div>
-  </mcr-dialog>
-</div>
+  </div>
