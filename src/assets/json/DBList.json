@@ -1,0 +1,18 @@
+[
+  {
+    "db_id": 1, "db_type": "8.9", "db_name": "city_nice_cls_89", "db_display_name":  "City 8_9", "db_state": "mapped",
+    "db_queries": [
+      { "query_id": 1,  "query_name": "Department1", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" },
+      { "query_id": 2,   "query_name": "Department2", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" },
+      { "query_id": 3,  "query_name": "Department3", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" }
+    ]
+  },
+  {
+    "db_id": 2, "db_type": "8.9", "db_name": "boa_nice_cls_89", "db_display_name":  "BOA 8_9", "db_state": "mapped",
+    "db_queries": [
+      { "query_id": 1,  "query_name": "Sale", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" },
+      { "query_id": 2,   "query_name": "Managers", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" },
+      { "query_id": 3,  "query_name": "GLs", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" }
+    ]
+  }
+]
