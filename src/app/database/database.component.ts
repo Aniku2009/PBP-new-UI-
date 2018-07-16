@@ -27,4 +27,15 @@ export class DatabaseComponent {
     this.interactionsService.deleteQueryByDBIdAndQueryId(dbId, queryId);
   }
 
+  newQuery(dbId: number){
+    this.interactionsService.TempDbId = dbId;
+  }
+
+  CreateNewQuery(dbId: number){
+    console.warn("Enter to CreateNewQuery()", dbId);
+    this.interactionsService.TempDbId = dbId;
+    console.warn("tempdbid", this.interactionsService.TempDbId);
+    //this.interactionsService.addDBQuery(dbId, "cat", "2018-07-12T00:00:00Z", "2018-07-12T00:00:00Z");
+  }
+
 }

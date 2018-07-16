@@ -12,7 +12,7 @@
             <div class="row">
                 <label class="control-label text-uppercase" for="query">Display name:</label>
                 <div class="input">          
-                  <input type="text" class="form-control" id="query" placeholder="Enter query name" name="query">
+                  <input type="text" class="form-control" id="query" placeholder="Enter query name" name="query" [(ngModel)] = "queryName">
                 </div>
             </div>
             <div class="row">
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Ok</button>
+            <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="testdb()">Ok</button>
             <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
         </div>
       </div>

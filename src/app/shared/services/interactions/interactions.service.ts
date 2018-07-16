@@ -6,12 +6,15 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {map} from 'rxjs/internal/operators';
 import 'rxjs-compat/add/operator/map';
+import { DatabaseComponent } from '../../../database/database.component';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class InteractionsService {
 
+  public TempDbId: number = null;
   public showNewQueryDialog: boolean = false;
   public showManageDBsDialog: boolean = false;
 
@@ -201,9 +204,9 @@ export class InteractionsService {
   ];
 
   constructor(private http: HttpClient) {
-
-
   }
+
+
 
   getDBs(): Database[]  {
     this.updateBDs();
@@ -214,8 +217,8 @@ export class InteractionsService {
     this.http.get('./assets/json/DBList.json').subscribe(
       (data: Database[]) => {
         this.legacySites = data;
-        console.log('dddddd');
-        console.log(data);
+        //console.log('dddddd');
+        //console.log(data);
         // return this.legacySites;
       }
     );
@@ -295,7 +298,27 @@ export class InteractionsService {
     // and remove from array
   }
 
-  addDBQuery(dbId: number, queryName: string, startDate: Date, endDate: Date) {
+  public addDBQuery(queryName: string, startDate: string, endDate: string) {
+    console.warn("Enter to addDBQuery()", this.TempDbId, queryName, startDate, endDate);
+    let namesArray = [];
+    this.legacySites.forEach(e => {
+      console.warn("Enter to foreach construction", e.db_id, this.TempDbId);
+      if(e.db_id == this.TempDbId)
+      {
+        console.warn("Enter to if construction", );
+        e.db_queries.push(
+          {
+            query_id: 4,
+            query_name: queryName,
+            start_date: startDate,
+            end_date: endDate
+          }
+        );
+      }
+    });
+    console.warn(this.legacySites);
+    //return namesArray;
+
     // send post request to  http://PlaybackPortal/api/queries
     // with body:
     // {

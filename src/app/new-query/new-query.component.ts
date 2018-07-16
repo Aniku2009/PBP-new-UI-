@@ -10,18 +10,26 @@ import {DateRange} from 'mcr-components';
 export class NewQueryComponent implements OnChanges {
 
   @ViewChild('dateRange') dateRangeRef: ElementRef;
+  private dateFrom: string = null;
+  private dateTo: string = null;
+  private queryName: string = null;
 
   public myModel = {
     dtRange: {
-      from: new Date(),
-      to: new Date()
+      dateFrom: new Date(),
+      dateTo: new Date()
     }
   };
 
   dateRangeChanged(dateRange: DateRange) {
     console.log(this.myModel.dtRange);
+    this.dateFrom = dateRange.from.toString();
+    this.dateTo = dateRange.to.toString();
   }
-
+  onNameChanged(name: string)
+  {
+    this.queryName = name;
+  }
   //@ViewChild('dialog') dialog: any;
  // @Input() showDialog: boolean;
 
@@ -37,15 +45,20 @@ export class NewQueryComponent implements OnChanges {
     widthOfDialog: 420
   }; */
   
-  constructor(interactionsService: InteractionsService) {
+  constructor(public interactionsService: InteractionsService) {
     console.log('hhhhhhhhhhhhhh');
 
    }
 
-  addDBQuery(dbId: number, queryName: string, startDate: Date, endDate: Date) {
+  /* addDBQuery(dbId: number, queryName: string, startDate: Date, endDate: Date) {
     this.addDBQuery(dbId, queryName, startDate, endDate);
-  }
+  } */
 
+  testdb()
+  {
+    this.interactionsService.addDBQuery(this.queryName, this.dateTo, this.dateFrom);
+    console.warn(this.dateFrom, this.dateTo, this.queryName);
+  }
   ngOnChanges() {
     /* console.log('-------' + this.showDialog);
     this.dialog.visible = this.showDialog; */
