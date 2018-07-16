@@ -1,29 +1,37 @@
-<div>
-    <mcr-dialog #dialog
-                [modal]="dialogModalConfiguration.modal"
-                [headerTitle]="dialogModalConfiguration.headerTitle"
-                [widthOfDialog]="dialogModalConfiguration.widthOfDialog"
-                [heightOfDialog]="dialogModalConfiguration.heightOfDialog"
-                [type]="dialogModalConfiguration.type"
-                [resizable]="dialogModalConfiguration.resizable"
-                [isClosable]="dialogModalConfiguration.isClosable"
-                [isCloseOnEscape]="dialogModalConfiguration.isCloseOnEscape">
-      <div class="mcr-dialog-body">
-        <div>{{dialogModalConfiguration.message}}</div>
+<!-- Modal -->
+<div class="modal fade" #dialog id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><fa-icon icon="file-alt" size="lg" colo></fa-icon>New query</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+                <label class="control-label text-uppercase" for="query">Display name:</label>
+                <div class="input">          
+                  <input type="text" class="form-control" id="query" placeholder="Enter query name" name="query">
+                </div>
+            </div>
+            <div class="row">
+                <mcr-date-range #dateRange
+                [fromLabel]="'FROM'"
+                [toLabel]="'TO'"
+                [inputErrorFrom]="false"
+                [inputErrorTo]="false"
+                [useTime]="false"
+                [(ngModel)]="myModel.dtRange"
+                (onDateRangeChanged)="dateRangeChanged($event)"></mcr-date-range>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Ok</button>
+            <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
+        </div>
       </div>
-      <div class="mcr-dialog-footer">
-        <mcr-button [size]="'big'" [type]="'primary'" [text]="'Ok'"
-                    (click)="interactionsService.showNewQueryDialog = false"></mcr-button>
-      </div>
-    </mcr-dialog>
+      
+    </div>
   </div>
-
-<!--<p>
-  here should be mcr dialog box with:<br/>
-    - db name<br/>
-
-    - input field for new query name<br/>
-    - mcr date range for start date and end date<br/>
-
-    *here is no query id (back end will add it)<br/>
-</p>-->

@@ -91,3 +91,47 @@ mcr-grid {
     font-size: 14px;
   }
 }
+
+.modal-content{
+  position: relative;
+  border-radius: 0;
+  height: 410px;
+  width: 670px
+}
+.modal-body{
+  background-color: #e9f1f5;
+  height: 275px;
+}
+.row{
+  padding: 15px 0;
+}
+.control-label{
+  margin-top: 5px;
+  padding-right: 30px;
+  color: #8c95a5;
+  font-size: 11px;
+}
+.modal-header {
+  border-bottom: 1px solid #337ab7;
+}
+.modal-footer{
+  min-height: 150px;
+}
+.btn-lg{
+  border-radius: 2px;
+  width: 150px;
+  border-bottom: 4px solid darken($color: #337ab7, $amount: 6%);
+}
+.btn-secondary{
+  border-bottom: 4px solid darken($color: #dddddd, $amount: 6%);
+}
+.form-control{
+  max-width: 303px;
+  border-radius: 0;
+  height: 38px;
+}
+fa-icon{
+  color: #337ab7;
+  padding-right: 15px;
+}
+

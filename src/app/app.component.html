@@ -15,10 +15,12 @@
     <pbp-query-results>Loading...</pbp-query-results>
   </div>
 
-  <div class="new-query-container" *ngIf="interactionsService.showNewQueryDialog">
+  <!-- <div class="new-query-container" *ngIf="interactionsService.showNewQueryDialog">
     <pbp-new-query [showDialog]="interactionsService.showNewQueryDialog"></pbp-new-query>
-  </div>
+  </div> -->
 
+  <pbp-new-query></pbp-new-query>
+  
   <div class="add-db-container" *ngIf="interactionsService.showManageDBsDialog">
     <pbp-databases-dialog [showDialog]="interactionsService.showManageDBsDialog"></pbp-databases-dialog>
   </div>
