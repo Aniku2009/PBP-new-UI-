@@ -2,6 +2,10 @@ import {Injectable} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Database} from '../../interfaces/Database';
 import {Query} from '../../interfaces/Query';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {map} from 'rxjs/internal/operators';
+import 'rxjs-compat/add/operator/map';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +18,10 @@ export class InteractionsService {
   private loginToken = 'token';
 
   private mockDate = new DatePipe('en').transform(new Date('2018-07-12T00:00:00Z'), 'short');
+  // public legacySites: Database[];
 
-  public legacySites = [
+
+  public legacySites: Database[] = [
     {
       db_id: 1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 1', db_state: 'mapped',
       db_queries: [
@@ -43,7 +49,7 @@ export class InteractionsService {
     { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 8621', db_state: 'mapped', db_queries: []},
     { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 56', db_state: 'mapped', db_queries: []},
   ];
-
+ // public legacySites: Database;
   public currentDB: Database; // db for which is result
   public currentQuery: Query; // query for which is result
 
@@ -194,12 +200,84 @@ export class InteractionsService {
     }
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) {
 
-  getDBs() {
-    // request to get all legacy sites
-    // response -> this.legacySites
+
   }
+
+  getDBs(): Database[]  {
+    this.updateBDs();
+    return this.legacySites;
+  }
+
+  updateBDs() {
+    this.http.get('./assets/json/DBList.json').subscribe(
+      (data: Database[]) => {
+        this.legacySites = data;
+        console.log('dddddd');
+        console.log(data);
+        // return this.legacySites;
+      }
+    );
+  }
+
+  getRowData() {
+    let namesArray = [];
+    this.legacySites.forEach(e => {
+      namesArray.push(
+        {
+          Db_name: e.db_name,
+          Display_name: e.db_display_name,
+          State: e.db_state
+        }
+      );
+    });
+    return namesArray;
+  }
+
+  // getDBs(): Database[]  {
+  //   this.updateBDs();
+  //   return this.legacySites;
+  // }
+  //
+  // updateBDs() {
+  //   this.http.get('./assets/json/DBList.json').subscribe(
+  //     (data: Database[]) => {
+  //       this.legacySites = data;
+  //       console.log(data);
+  //       // return this.legacySites;
+  //     }
+  //   );
+  // }
+
+  // getDBs(): Observable<Database[]> {
+  //   return this.http.get('./assets/json/DBList.json').map((res: any) => {
+  //     const searchdataMap = new Database();
+  //     res.collection.map(function (collection: any, next_: any) {
+  //       this.legacySites .db_name.push(collection.title);
+  //       this.legacySites .db_display_name.push(collection.);
+  //       this.legacySites .db_state.push(collection.dbstate);
+  //     });
+  //    // this.legacySites = searchdataMap;
+  //    return this.legacySites = searchdataMap;
+  //   });
+  // }
+
+
+  // getDBs(): Database[]  {
+  //   this.updateBDs();
+  //   return this.legacySites;
+  // }
+  //
+  // updateBDs() {
+  //   this.http.get('./assets/json/DBList.json').subscribe(
+  //     (data: Database[]) => {
+  //       this.legacySites = data;
+  //       console.log(data);
+  //       // return this.legacySites;
+  //     }
+  //   );
+  // }
 
   getInteractions(dbId: number, startDate: Date, endDate: Date) {
     // send get request to get interactions
