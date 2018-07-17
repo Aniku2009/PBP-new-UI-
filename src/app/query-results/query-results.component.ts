@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-
 import {GridOptions} from 'ag-grid';
 import {InteractionsService} from '../shared/services/interactions/interactions.service';
 
@@ -25,7 +24,7 @@ export class QueryResultsComponent {
   gridOptions: GridOptions = {
     domLayout: 'autoHeight',
     rowSelection: 'multiple',
-    debug: true,
+    //debug: true,
     onGridReady: this.onGridReady.bind(this),
   };
 

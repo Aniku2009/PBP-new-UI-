@@ -15,6 +15,7 @@ import {Headers, RequestOptions} from '@angular/http';
   providedIn: 'root'
 })
 
+
 export class InteractionsService {
 
   public TempDbId: number = null;
@@ -24,7 +25,7 @@ export class InteractionsService {
   private loginToken = 'token';
 
   private mockDate = new DatePipe('en').transform(new Date('2018-07-12T00:00:00Z'), 'short');
-   public legacySites: Database[];
+  public legacySites: Database[];
 
 
   
@@ -182,15 +183,15 @@ export class InteractionsService {
   constructor(private http: HttpClient) {
   }
 
-/*   ngOnInit() {
-    this.http.get(this.url).subscribe(
+  ngOnInit() {
+    this.http.get(this.url + '/LegacySites').subscribe(
         (data: Database []) => {
           this.legacySites = data;
-          console.warn("I CANT SEE DATA HERE: ", this.legacySites);
+          console.warn("I CANT SEE DATA HERE: ", this.legacySites.forEach(s => {s.db_queries.length}));
         }
     );
-    console.warn("2-I CANT SEE DATA HERE: ", this.legacySites);
-} */
+    console.warn("2-I CANT SEE DATA HERE: ", this.legacySites.forEach(s => {s.db_queries.length}));
+}
 
   getDBs(): Database[]  {
     console.warn('Enter to getDBs()');
@@ -200,14 +201,10 @@ export class InteractionsService {
   }
 
   updateBDs() {
-    //'./assets/json/DBList.json'
     this.http.get(this.url + "/LegacySites").subscribe(
       (data: Database[]) => {
-        console.warn(data);
         this.legacySites = data;
         this.currentDB = data;
-        console.warn('dddddd');
-        console.warn(data);
         return this.legacySites;
       }
     );
@@ -275,14 +272,11 @@ export class InteractionsService {
   // }
 
   getInteractions(dbId: number, startDate: Date, endDate: Date) {
-    let headers = new Headers({'db_id': 'dbId', 'start_date': 'startDate', 'end_date': 'endDate'});
-    //let options = new RequestOptions({headers: headers});
-    this.http.get(this.url + "/interactions", headers.toJSON()).subscribe(
+    this.http.get(this.url + "/interactions").subscribe(
       (data: Interaction[]) => {
-        this.queryResults = data as Interaction[];
+        this.queryResults = data;
         });
         console.log('dddddd');
-        // return this.legacySites;
     // send get request to get interactions
     // http://PlaybackPortal/api/interactions/{dbId}
     // start date and end Date, loginToken in headers
@@ -299,53 +293,27 @@ export class InteractionsService {
   }
 
   public addDBQuery(queryName: string, startDate: string, endDate: string) {
-    console.warn("Enter to addDBQuery()", this.TempDbId, queryName, startDate, endDate);
-    //let namesArray = [];
     this.legacySites.forEach(e => {
-      console.warn("Enter to foreach construction", e.db_id, this.TempDbId);
       if(e.db_id == this.TempDbId)
       {
-        const httpOptions = {
-          headers: new HttpHeaders({
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-            'Access-Control-Allow-Headers': 'Content-Type,x-requested-with,Authorization,Access-Control-Allow-Origin'
-          })
-        };
-        let obj = new Object ("db_id:this.TempDbId, query_name: queryName, start_date: startDate, end_date: endDate");
-       //const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
-       //let options = new HttpRequest() ({ headers: headers },this.http);
-        console.log('post is ready to run');
-        console.log(this.url);
-        this.http.post(this.url + '/queries', obj)
+        this.http.post(this.url + '/queries', {db_id:this.TempDbId, query_name: queryName, start_date: startDate, end_date: endDate})
           .subscribe(
-          data => {
-            console.log('POST Request is successful', data);
+          (data: Query[]) => {
+            e.db_queries.push(
+              {
+                query_id: data['query_id'],
+                query_name: data['query_name'],
+                start_date: data['start_date'],
+                end_date: data['end_date']     
+              }    
+            );
           },
           error => {
             console.log('Error', error);
           }
-          )
-      
-        //this.http.post(this.url + "/queries", {db_id:this.TempDbId, query_name: queryName, start_date: startDate, end_date: endDate});
-        console.warn("Enter to if construction", );
-        this.getDBs();
-        /* e.db_queries.push(
-          {
-            query_id: 4,
-            query_name: queryName,
-            start_date: startDate,
-            end_date: endDate     
-          }    
-        ); */
+          )        
       }
     });
-    console.warn(this.legacySites);
-    //return namesArray;
-
-
-
-
     // send post request to  http://PlaybackPortal/api/queries
     // with body:
     // {
@@ -379,22 +347,13 @@ export class InteractionsService {
   }
 
   postData(postLegacySite: Database[]) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': this.url,
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-        'Access-Control-Allow-Headers': 'Content-Type,x-requested-with,Authorization,Access-Control-Allow-Origin'
-      })
-    };
-  // const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
-  // let options = new HttpRequest() ({ headers: headers },this.http);
-    console.log('post is ready to run');
-    console.log(postLegacySite);
-    console.log(this.url);
-    this.http.post(this.url + '/LegacySites', postLegacySite, httpOptions)
+    console.log('postData - post is ready to run');
+    console.log('postData - ' + postLegacySite);
+    console.log('postData - ' + this.url);
+    this.http.post(this.url + '/LegacySites', postLegacySite)
       .subscribe(
       data => {
-        console.log('POST Request is successful', data);
+        console.log('postData - POST Request is successful', data);
       },
       error => {
         console.log('Error', error);
