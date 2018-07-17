@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {map} from 'rxjs/internal/operators';
 import 'rxjs-compat/add/operator/map';
 import { DatabaseComponent } from '../../../database/database.component';
+import { Interaction } from '../../interfaces/Interaction';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class InteractionsService {
   public TempDbId: number = null;
   public showNewQueryDialog: boolean = false;
   public showManageDBsDialog: boolean = false;
-
+  public url: string = "http://localhost:24720/api/legacySites";
   private loginToken = 'token';
 
   private mockDate = new DatePipe('en').transform(new Date('2018-07-12T00:00:00Z'), 'short');
@@ -55,8 +56,9 @@ export class InteractionsService {
  // public legacySites: Database;
   public currentDB: Database []; // db for which is result
   public currentQuery: Query[]; // query for which is result
+  public queryResults: Interaction [];
 
-  public queryResults = [
+  /* public queryResults = [
     {
       Segment_Id: 336975428,
       Segment_Start_Time: this.mockDate,
@@ -201,7 +203,7 @@ export class InteractionsService {
       First_Name: 'John',
       Last_Name: 'Doe'
     }
-  ];
+  ]; */
 
   constructor(private http: HttpClient) {
   }
@@ -214,12 +216,14 @@ export class InteractionsService {
   }
 
   updateBDs() {
-    this.http.get('./assets/json/DBList.json').subscribe(
+    //'./assets/json/DBList.json'
+    this.http.get(this.url).subscribe(
       (data: Database[]) => {
+        console.warn(data);
         this.legacySites = data;
         this.currentDB = data;
         console.log('dddddd');
-        console.log(data);
+        console.warn(data);
         // return this.legacySites;
       }
     );
@@ -287,6 +291,12 @@ export class InteractionsService {
   // }
 
   getInteractions(dbId: number, startDate: Date, endDate: Date) {
+    this.http.get(this.url + "/interactions").subscribe(
+      (data: Interaction[]) => {
+        this.queryResults = data as Interaction[];
+        });
+        console.log('dddddd');
+        // return this.legacySites;
     // send get request to get interactions
     // http://PlaybackPortal/api/interactions/{dbId}
     // start date and end Date, loginToken in headers
