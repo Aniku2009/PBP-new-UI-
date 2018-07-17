@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Component, ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Database} from '../../interfaces/Database';
 import {Query} from '../../interfaces/Query';
@@ -8,6 +8,8 @@ import {map} from 'rxjs/internal/operators';
 import 'rxjs-compat/add/operator/map';
 import { DatabaseComponent } from '../../../database/database.component';
 import { Interaction } from '../../interfaces/Interaction';
+import {Headers, RequestOptions} from '@angular/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,42 +20,14 @@ export class InteractionsService {
   public TempDbId: number = null;
   public showNewQueryDialog: boolean = false;
   public showManageDBsDialog: boolean = false;
-  public url: string = "http://localhost:24720/api/legacySites";
+  public url: string = "http://10.128.33.183:9811/api";
   private loginToken = 'token';
 
   private mockDate = new DatePipe('en').transform(new Date('2018-07-12T00:00:00Z'), 'short');
    public legacySites: Database[];
 
 
-  // public legacySites: Database[] = [
-  //   {
-  //     db_id: 1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 1', db_state: 'mapped',
-  //     db_queries: [
-  //       { query_id: 1,  query_name: 'Query 45345', start_date : this.mockDate,  end_date :  this.mockDate },
-  //       { query_id: 2,  query_name: 'Query 3457', start_date : this.mockDate,  end_date :  this.mockDate },
-  //       { query_id: 3,  query_name: 'Query 8554', start_date : this.mockDate,  end_date :  this.mockDate }
-  //     ]
-  //   },
-  //   {
-  //     db_id: 2, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'City 8_9', db_state: 'mapped',
-  //     db_queries: [
-  //       { query_id: 1,  query_name: 'Query 7633', start_date : this.mockDate,  end_date :  this.mockDate },
-  //       { query_id: 2,  query_name: 'Department1', start_date : this.mockDate,  end_date :  this.mockDate },
-  //       { query_id: 3,  query_name: 'Query 4354', start_date : this.mockDate,  end_date :  this.mockDate }
-  //     ]
-  //   },
-  //   {
-  //     db_id: 8, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'DB 32423', db_state: 'mapped',
-  //     db_queries: [
-  //       { query_id: 1,  query_name: 'Query 7633', start_date : this.mockDate,  end_date :  this.mockDate },
-  //       { query_id: 2,  query_name: 'Query 7456', start_date : this.mockDate,  end_date :  this.mockDate },
-  //       { query_id: 3,  query_name: 'Query 4354', start_date : this.mockDate,  end_date :  this.mockDate }
-  //     ]
-  //   },
-  //   { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 8621', db_state: 'mapped', db_queries: []},
-  //   { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 56', db_state: 'mapped', db_queries: []},
-  // ];
- // public legacySites: Database;
+  
   public currentDB: Database []; // db for which is result
   public currentQuery: Query[]; // query for which is result
   public queryResults: Interaction [];
@@ -208,23 +182,33 @@ export class InteractionsService {
   constructor(private http: HttpClient) {
   }
 
-
+/*   ngOnInit() {
+    this.http.get(this.url).subscribe(
+        (data: Database []) => {
+          this.legacySites = data;
+          console.warn("I CANT SEE DATA HERE: ", this.legacySites);
+        }
+    );
+    console.warn("2-I CANT SEE DATA HERE: ", this.legacySites);
+} */
 
   getDBs(): Database[]  {
+    console.warn('Enter to getDBs()');
     this.updateBDs();
+    console.warn("results of: " + this.updateBDs());
     return this.legacySites;
   }
 
   updateBDs() {
     //'./assets/json/DBList.json'
-    this.http.get(this.url).subscribe(
+    this.http.get(this.url + "/LegacySites").subscribe(
       (data: Database[]) => {
         console.warn(data);
         this.legacySites = data;
         this.currentDB = data;
-        console.log('dddddd');
+        console.warn('dddddd');
         console.warn(data);
-        // return this.legacySites;
+        return this.legacySites;
       }
     );
   }
@@ -291,7 +275,9 @@ export class InteractionsService {
   // }
 
   getInteractions(dbId: number, startDate: Date, endDate: Date) {
-    this.http.get(this.url + "/interactions").subscribe(
+    let headers = new Headers({'db_id': 'dbId', 'start_date': 'startDate', 'end_date': 'endDate'});
+    //let options = new RequestOptions({headers: headers});
+    this.http.get(this.url + "/interactions", headers.toJSON()).subscribe(
       (data: Interaction[]) => {
         this.queryResults = data as Interaction[];
         });
@@ -371,6 +357,36 @@ export class InteractionsService {
   postData(postLegacySite: Database[]) {
     return this.http.post('http://localhost:60820/api/values', postLegacySite);
   }
+
+  // public legacySites: Database[] = [
+  //   {
+  //     db_id: 1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 1', db_state: 'mapped',
+  //     db_queries: [
+  //       { query_id: 1,  query_name: 'Query 45345', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 2,  query_name: 'Query 3457', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 3,  query_name: 'Query 8554', start_date : this.mockDate,  end_date :  this.mockDate }
+  //     ]
+  //   },
+  //   {
+  //     db_id: 2, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'City 8_9', db_state: 'mapped',
+  //     db_queries: [
+  //       { query_id: 1,  query_name: 'Query 7633', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 2,  query_name: 'Department1', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 3,  query_name: 'Query 4354', start_date : this.mockDate,  end_date :  this.mockDate }
+  //     ]
+  //   },
+  //   {
+  //     db_id: 8, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'DB 32423', db_state: 'mapped',
+  //     db_queries: [
+  //       { query_id: 1,  query_name: 'Query 7633', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 2,  query_name: 'Query 7456', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 3,  query_name: 'Query 4354', start_date : this.mockDate,  end_date :  this.mockDate }
+  //     ]
+  //   },
+  //   { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 8621', db_state: 'mapped', db_queries: []},
+  //   { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 56', db_state: 'mapped', db_queries: []},
+  // ];
+ // public legacySites: Database;
 }
 
 

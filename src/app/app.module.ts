@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { HttpModule } from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {DatabaseComponent} from './database/database.component';
@@ -16,7 +17,6 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {DatabasesDialogComponent} from './databases-dialog/databases-dialog.component';
 
 library.add(fas);
-
 
 import {MCRButtonModule,
         MCRDateRangeModule,
@@ -40,6 +40,7 @@ import {MCRButtonModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
     BrowserModule,
+    HttpModule,
     FormsModule,
     HttpClientModule,
     MCRTopBarModule,
