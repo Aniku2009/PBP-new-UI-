@@ -2,7 +2,7 @@ import {Injectable, Component, ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Database} from '../../interfaces/Database';
 import {Query} from '../../interfaces/Query';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {map} from 'rxjs/internal/operators';
 import 'rxjs-compat/add/operator/map';
@@ -20,7 +20,7 @@ export class InteractionsService {
   public TempDbId: number = null;
   public showNewQueryDialog: boolean = false;
   public showManageDBsDialog: boolean = false;
-  public url: string = "http://10.128.33.183:9811/api";
+  public url: string = "http://localhost:24720/api";
   private loginToken = 'token';
 
   private mockDate = new DatePipe('en').transform(new Date('2018-07-12T00:00:00Z'), 'short');
@@ -300,20 +300,44 @@ export class InteractionsService {
 
   public addDBQuery(queryName: string, startDate: string, endDate: string) {
     console.warn("Enter to addDBQuery()", this.TempDbId, queryName, startDate, endDate);
-    let namesArray = [];
+    //let namesArray = [];
     this.legacySites.forEach(e => {
       console.warn("Enter to foreach construction", e.db_id, this.TempDbId);
       if(e.db_id == this.TempDbId)
       {
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Content-Type,x-requested-with,Authorization,Access-Control-Allow-Origin'
+          })
+        };
+        let obj = new Object ("db_id:this.TempDbId, query_name: queryName, start_date: startDate, end_date: endDate");
+       //const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
+       //let options = new HttpRequest() ({ headers: headers },this.http);
+        console.log('post is ready to run');
+        console.log(this.url);
+        this.http.post(this.url + '/queries', obj)
+          .subscribe(
+          data => {
+            console.log('POST Request is successful', data);
+          },
+          error => {
+            console.log('Error', error);
+          }
+          )
+      
+        //this.http.post(this.url + "/queries", {db_id:this.TempDbId, query_name: queryName, start_date: startDate, end_date: endDate});
         console.warn("Enter to if construction", );
-        e.db_queries.push(
+        this.getDBs();
+        /* e.db_queries.push(
           {
             query_id: 4,
             query_name: queryName,
             start_date: startDate,
-            end_date: endDate
-          }
-        );
+            end_date: endDate     
+          }    
+        ); */
       }
     });
     console.warn(this.legacySites);
@@ -355,8 +379,33 @@ export class InteractionsService {
   }
 
   postData(postLegacySite: Database[]) {
-    return this.http.post('http://localhost:60820/api/values', postLegacySite);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': this.url,
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type,x-requested-with,Authorization,Access-Control-Allow-Origin'
+      })
+    };
+  // const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
+  // let options = new HttpRequest() ({ headers: headers },this.http);
+    console.log('post is ready to run');
+    console.log(postLegacySite);
+    console.log(this.url);
+    this.http.post(this.url + '/LegacySites', postLegacySite, httpOptions)
+      .subscribe(
+      data => {
+        console.log('POST Request is successful', data);
+      },
+      error => {
+        console.log('Error', error);
+      }
+      );
   }
+  
+
+  /* postData(postLegacySite: Database[]) {
+    return this.http.post('http://localhost:60820/api/values', postLegacySite);
+  } */
 
   // public legacySites: Database[] = [
   //   {
