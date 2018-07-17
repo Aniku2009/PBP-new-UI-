@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Manage Data</h4>
+          <h4 class="modal-title">Manage databases</h4>
         </div>
         <div class="modal-body">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="interactionsService.mapAllDbs()">Map all</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
