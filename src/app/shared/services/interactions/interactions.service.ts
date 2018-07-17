@@ -333,6 +333,9 @@ export class InteractionsService {
     console.warn(this.legacySites);
     //return namesArray;
 
+
+
+
     // send post request to  http://PlaybackPortal/api/queries
     // with body:
     // {
@@ -354,4 +357,20 @@ export class InteractionsService {
     // add query to queries array
   }
 
+  mapAllDbs() {
+    let namesArray = [];
+    this.legacySites.forEach(e => {
+      if (e.db_state === 'unmapped') {
+        e.db_state =  'mapped';
+      }
+    });
+    this.postData(this.legacySites);
+    this.getDBs();
+  }
+
+  postData(postLegacySite: Database[]) {
+    return this.http.post('http://localhost:60820/api/values', postLegacySite);
+  }
 }
+
+
