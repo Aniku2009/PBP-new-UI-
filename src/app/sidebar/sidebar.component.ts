@@ -12,24 +12,24 @@ import {GridOptions} from 'ag-grid';
 export class SidebarComponent {
 
   public DBState = DBState;
-  gridApi;
-  gridHeaders = [
-    {headerName: 'DB NAME', field: 'Db_name'},
-    {headerName: 'DISPLAY NAME', field: 'Display_name'},
-    {headerName: 'STATE', field: 'State'},
-  ];
-
-  gridOptions: GridOptions = {
-    domLayout: 'autoHeight',
-    rowSelection: 'multiple',
-    debug: true,
-    onGridReady: this.onGridReady.bind(this),
-  };
+  // gridApi;
+  // gridHeaders = [
+  //   {headerName: 'DB NAME', field: 'Db_name'},
+  //   {headerName: 'DISPLAY NAME', field: 'Display_name'},
+  //   {headerName: 'STATE', field: 'State'},
+  // ];
+  //
+  // gridOptions: GridOptions = {
+  //   domLayout: 'autoHeight',
+  //   rowSelection: 'multiple',
+  //   debug: true,
+  //   onGridReady: this.onGridReady.bind(this),
+  // };
 
   constructor (public interactionsService: InteractionsService) {}
 
-  private onGridReady (params) {
-    this.gridApi = params.api;
-    return this.gridApi.sizeColumnsToFit();
-  }
+  // private onGridReady (params) {
+  //   this.gridApi = params.api;
+  //   return this.gridApi.sizeColumnsToFit();
+  // }
 }

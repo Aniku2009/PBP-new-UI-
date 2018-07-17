@@ -26,7 +26,6 @@
     "ag-grid": "^18.1.1",
     "ag-grid-angular": "^18.1.0",
     "core-js": "^2.5.4",
-    "mcr-components": "1.1.200",
     "moment": "^2.22.2",
     "ng2-nvd3": "^2.0.0",
     "ngx-bootstrap": "^3.0.0",

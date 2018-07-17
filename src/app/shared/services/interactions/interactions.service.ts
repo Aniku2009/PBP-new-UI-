@@ -21,40 +21,40 @@ export class InteractionsService {
   private loginToken = 'token';
 
   private mockDate = new DatePipe('en').transform(new Date('2018-07-12T00:00:00Z'), 'short');
-  // public legacySites: Database[];
+   public legacySites: Database[];
 
 
-  public legacySites: Database[] = [
-    {
-      db_id: 1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 1', db_state: 'mapped',
-      db_queries: [
-        { query_id: 1,  query_name: 'Query 45345', start_date : this.mockDate,  end_date :  this.mockDate },
-        { query_id: 2,  query_name: 'Query 3457', start_date : this.mockDate,  end_date :  this.mockDate },
-        { query_id: 3,  query_name: 'Query 8554', start_date : this.mockDate,  end_date :  this.mockDate }
-      ]
-    },
-    {
-      db_id: 2, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'DB 1256', db_state: 'mapped',
-      db_queries: [
-        { query_id: 1,  query_name: 'Query 7633', start_date : this.mockDate,  end_date :  this.mockDate },
-        { query_id: 2,  query_name: 'Query 7456', start_date : this.mockDate,  end_date :  this.mockDate },
-        { query_id: 3,  query_name: 'Query 4354', start_date : this.mockDate,  end_date :  this.mockDate }
-      ]
-    },
-    {
-      db_id: 8, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'DB 32423', db_state: 'mapped',
-      db_queries: [
-        { query_id: 1,  query_name: 'Query 7633', start_date : this.mockDate,  end_date :  this.mockDate },
-        { query_id: 2,  query_name: 'Query 7456', start_date : this.mockDate,  end_date :  this.mockDate },
-        { query_id: 3,  query_name: 'Query 4354', start_date : this.mockDate,  end_date :  this.mockDate }
-      ]
-    },
-    { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 8621', db_state: 'mapped', db_queries: []},
-    { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 56', db_state: 'mapped', db_queries: []},
-  ];
+  // public legacySites: Database[] = [
+  //   {
+  //     db_id: 1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 1', db_state: 'mapped',
+  //     db_queries: [
+  //       { query_id: 1,  query_name: 'Query 45345', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 2,  query_name: 'Query 3457', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 3,  query_name: 'Query 8554', start_date : this.mockDate,  end_date :  this.mockDate }
+  //     ]
+  //   },
+  //   {
+  //     db_id: 2, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'City 8_9', db_state: 'mapped',
+  //     db_queries: [
+  //       { query_id: 1,  query_name: 'Query 7633', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 2,  query_name: 'Department1', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 3,  query_name: 'Query 4354', start_date : this.mockDate,  end_date :  this.mockDate }
+  //     ]
+  //   },
+  //   {
+  //     db_id: 8, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'DB 32423', db_state: 'mapped',
+  //     db_queries: [
+  //       { query_id: 1,  query_name: 'Query 7633', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 2,  query_name: 'Query 7456', start_date : this.mockDate,  end_date :  this.mockDate },
+  //       { query_id: 3,  query_name: 'Query 4354', start_date : this.mockDate,  end_date :  this.mockDate }
+  //     ]
+  //   },
+  //   { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 8621', db_state: 'mapped', db_queries: []},
+  //   { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 56', db_state: 'mapped', db_queries: []},
+  // ];
  // public legacySites: Database;
-  public currentDB: Database; // db for which is result
-  public currentQuery: Query; // query for which is result
+  public currentDB: Database []; // db for which is result
+  public currentQuery: Query[]; // query for which is result
 
   public queryResults = [
     {
@@ -217,8 +217,9 @@ export class InteractionsService {
     this.http.get('./assets/json/DBList.json').subscribe(
       (data: Database[]) => {
         this.legacySites = data;
-        //console.log('dddddd');
-        //console.log(data);
+        this.currentDB = data;
+        console.log('dddddd');
+        console.log(data);
         // return this.legacySites;
       }
     );
@@ -231,12 +232,15 @@ export class InteractionsService {
         {
           Db_name: e.db_name,
           Display_name: e.db_display_name,
-          State: e.db_state
+          State: e.db_state,
+          //Query: e.db_queries
         }
       );
     });
+    //this.currentDB = namesArray;
     return namesArray;
   }
+
 
   // getDBs(): Database[]  {
   //   this.updateBDs();

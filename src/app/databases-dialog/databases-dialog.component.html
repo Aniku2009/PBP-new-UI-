@@ -30,21 +30,22 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <div class="grid-container">
                 <mcr-grid [columnDefs]="gridHeaders"
-                          [rowData]="interactionsService.queryResults"
+                          [rowData]="interactionsService.getRowData()"
                           [gridOptions]="gridOptions"></mcr-grid>
               </div>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <div class="grid-container">
                 <mcr-grid [columnDefs]="gridHeaders"
-                          [rowData]="interactionsService.queryResults"
+                          [rowData]="interactionsService.getRowData()"
                           [gridOptions]="gridOptions"></mcr-grid>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
 

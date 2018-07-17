@@ -14,5 +14,13 @@
       { "query_id": 2,   "query_name": "Managers", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" },
       { "query_id": 3,  "query_name": "GLs", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" }
     ]
+  },
+  {
+    "db_id": 3, "db_type": "8.9", "db_name": "fargo_nice_cls_89", "db_display_name":  "BOA 8_9", "db_state": "unmapped",
+    "db_queries": [
+      { "query_id": 1,  "query_name": "Sale", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" },
+      { "query_id": 2,   "query_name": "Managers", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" },
+      { "query_id": 3,  "query_name": "GLs", "start_date" : "2018-07-12T00:00:00Z",  "end_date" :  "2018-07-12T00:00:00Z" }
+    ]
   }
 ]

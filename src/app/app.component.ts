@@ -8,9 +8,10 @@ import {InteractionsService} from './shared/services/interactions/interactions.s
 })
 export class AppComponent {
   constructor(public interactionsService: InteractionsService) {
-    this.interactionsService.currentDB = this.interactionsService.legacySites[1]; // hardcoded
-    this.interactionsService.currentQuery = this.interactionsService.legacySites[1].db_queries[1]; // hardcoded
+    // this.interactionsService.currentDB = this.interactionsService.legacySites[1]; // hardcoded
+    // this.interactionsService.currentQuery = this.interactionsService.legacySites[1].db_queries[1]; // hardcoded
 
     this.interactionsService.getDBs();
+    //this.interactionsService.getQuerys();
   }
 }
