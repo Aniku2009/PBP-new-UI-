@@ -34,7 +34,7 @@ export class DatabasesDialogComponent implements OnChanges {
   gridOptions: GridOptions = {
     domLayout: 'autoHeight',
     rowSelection: 'multiple',
-    //debug: true,
+    debug: false,
     onGridReady: this.onGridReady.bind(this),
   };
 

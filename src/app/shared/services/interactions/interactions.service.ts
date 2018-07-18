@@ -257,12 +257,10 @@ private url = 'http://10.128.33.183:9811/api/LegacySites';
         {
           Db_name: e.db_name,
           Display_name: e.db_display_name,
-          State: e.db_state,
-          //Query: e.db_queries
+          State: e.db_state
         }
       );
     });
-    //this.currentDB = namesArray;
     return namesArray;
   }
 
@@ -390,7 +388,7 @@ private url = 'http://10.128.33.183:9811/api/LegacySites';
     const httpOptions = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': this.url,
-        'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
         'Access-Control-Allow-Headers': 'Content-Type,x-requested-with,Authorization,Access-Control-Allow-Origin',
         'Access-Control-Allow-Credentials': 'true',
         // 'Accept': 'application/json',
@@ -403,7 +401,7 @@ private url = 'http://10.128.33.183:9811/api/LegacySites';
     console.log('post is ready to run');
     console.log(postLegacySite);
     console.log(this.url);
-   this.http.post(this.url, postLegacySite)
+   this.http.post(this.url, postLegacySite, httpOptions)
       .subscribe(
       data => {
         console.log('POST Request is successful', data);
