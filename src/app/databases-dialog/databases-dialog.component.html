@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Manage databases</h4>
+          <h4 class="modal-title"><fa-icon icon="cogs" size="lg"></fa-icon>Manage databases</h4>
         </div>
         <div class="modal-body">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -20,7 +20,7 @@
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="grid-container">
                 <mcr-grid [columnDefs]="gridHeaders"
                           [rowData]="interactionsService.getRowData()"

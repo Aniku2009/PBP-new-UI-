@@ -8,23 +8,15 @@
   </div>
 
   <div class="sidebar-container">
-    <pbp-sidebar>Loading...</pbp-sidebar>
+    <pbp-sidebar></pbp-sidebar>
   </div>
 
   <div class="results-container">
-    <pbp-query-results>Loading...</pbp-query-results>
+    <pbp-query-results></pbp-query-results>
   </div>
-
-  <!-- <div class="new-query-container" *ngIf="interactionsService.showNewQueryDialog">
-    <pbp-new-query [showDialog]="interactionsService.showNewQueryDialog"></pbp-new-query>
-  </div> -->
 
   <pbp-new-query></pbp-new-query>
   
-<pbp-databases-dialog></pbp-databases-dialog>
-
-  <!-- <div class="add-db-container" *ngIf="interactionsService.showManageDBsDialog">
-    <pbp-databases-dialog [showDialog]="interactionsService.showManageDBsDialog"></pbp-databases-dialog>
-  </div> -->
+  <pbp-databases-dialog></pbp-databases-dialog>
 
 </div>

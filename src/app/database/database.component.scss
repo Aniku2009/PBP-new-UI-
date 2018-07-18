@@ -1,15 +1,8 @@
 .db-title {
   width: 100%;
   box-sizing: border-box;
-  padding: 15px 21px 15px 15px;
-  //text-align: left;
-  //background-color: #6b8ea8;
-  //background-color: #435d70;
-  //color: #ffffff;
+  padding: 12px 21px 12px 15px;
 
-  //font-size: 20px;
-  //color: #818181;
-  //cursor: pointer;
   &:hover {
     background-color: #ffffff;
     color: #2D3E49;
@@ -35,7 +28,8 @@
   font-size: 16px;
 
   .db-query {
-    padding: 10px 15px 10px 40px;
+    position: relative;
+    padding: 8px 12px 8px 40px;
     line-height: 26px;
     color: #d1d1d1;
     //mix-blend-mode: unset;
@@ -49,7 +43,8 @@
 
     .icon-delete-query {
       padding-right: 10px;
-      font-size: 24px;
+      padding-top: 5px;
+      font-size: 16px;
       float: right;
       &:hover {
         mix-blend-mode: difference;
@@ -61,6 +56,7 @@
         height: 28px;
         width: 28px;
         float: right;
+        margin-right: 2px;
       }
     }
   }

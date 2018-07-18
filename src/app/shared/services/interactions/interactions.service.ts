@@ -29,7 +29,7 @@ export class InteractionsService {
 
 
   
-  public currentDB: Database []; // db for which is result
+  public currentDB: Database[]; // db for which is result
   public currentQuery: Query[]; // query for which is result
   public queryResults: Interaction [];
 
@@ -183,16 +183,6 @@ export class InteractionsService {
   constructor(private http: HttpClient) {
   }
 
-  ngOnInit() {
-    this.http.get(this.url + '/LegacySites').subscribe(
-        (data: Database []) => {
-          this.legacySites = data;
-          console.warn("I CANT SEE DATA HERE: ", this.legacySites.forEach(s => {s.db_queries.length}));
-        }
-    );
-    console.warn("2-I CANT SEE DATA HERE: ", this.legacySites.forEach(s => {s.db_queries.length}));
-}
-
   getDBs(): Database[]  {
     console.warn('Enter to getDBs()');
     this.updateBDs();
@@ -205,6 +195,7 @@ export class InteractionsService {
       (data: Database[]) => {
         this.legacySites = data;
         this.currentDB = data;
+        //this.currentQuery = this.currentDB.db_queries[0];
         return this.legacySites;
       }
     );
@@ -242,20 +233,6 @@ export class InteractionsService {
   //   );
   // }
 
-  // getDBs(): Observable<Database[]> {
-  //   return this.http.get('./assets/json/DBList.json').map((res: any) => {
-  //     const searchdataMap = new Database();
-  //     res.collection.map(function (collection: any, next_: any) {
-  //       this.legacySites .db_name.push(collection.title);
-  //       this.legacySites .db_display_name.push(collection.);
-  //       this.legacySites .db_state.push(collection.dbstate);
-  //     });
-  //    // this.legacySites = searchdataMap;
-  //    return this.legacySites = searchdataMap;
-  //   });
-  // }
-
-
   // getDBs(): Database[]  {
   //   this.updateBDs();
   //   return this.legacySites;
@@ -276,7 +253,12 @@ export class InteractionsService {
       (data: Interaction[]) => {
         this.queryResults = data;
         });
-        console.log('dddddd');
+        /* console.log('dddddd');
+        this.legacySites.forEach(site =>{
+          if(site.db_id==dbId)
+          {
+            this.currentDB.push(site);
+          }}) */
     // send get request to get interactions
     // http://PlaybackPortal/api/interactions/{dbId}
     // start date and end Date, loginToken in headers
@@ -286,7 +268,6 @@ export class InteractionsService {
 
   deleteQueryByDBIdAndQueryId(dbId: number, queryId: number) {
     // now query deletion should be only on FE
-
     // find db in this.legacySites by dbId
     // then find in db query by query id
     // and remove from array
@@ -314,25 +295,6 @@ export class InteractionsService {
           )        
       }
     });
-    // send post request to  http://PlaybackPortal/api/queries
-    // with body:
-    // {
-    //      "db_id": dbId,
-    // 			"query_name": queryName,
-    // 			"start_date": startDate,
-    // 			"end_date":  endDate
-    // }
-    // -----------------------------------
-    // response:
-    // {
-    // 	"db_id": "string",
-    // 	"query_id": "string",
-    // 	"query_name": "string",
-    // 	"start_date" : "date",
-    // 	"end_date" :  "date"
-    // 	}
-    // in subscribe find in this.legacySites db by dbID
-    // add query to queries array
   }
 
   mapAllDbs() {
