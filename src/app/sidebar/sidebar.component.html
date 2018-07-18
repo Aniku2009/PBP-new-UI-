@@ -1,12 +1,13 @@
 <div class="db-list">
 
   <div *ngFor="let db of interactionsService.legacySites">
-    <pbp-database *ngIf="db.db_state === DBState.Mapped"
+    <!--<pbp-database *ngIf="db.db_state === DBState.Mapped"-->
+    <pbp-database *ngIf="db.db_state === 'mapped'"
                   [database]="db"></pbp-database>
   </div>
 
   <div class="add-db" data-toggle="modal" data-target="#myModal">
         Manage databases
         <img class="icon icon-add-db" src="assets/svgs/Settings.svg" alt="Add new database"/>
-  </div>  
+  </div>
 </div>

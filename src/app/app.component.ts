@@ -11,7 +11,7 @@ export class AppComponent {
     // this.interactionsService.currentDB = this.interactionsService.legacySites[1]; // hardcoded
     // this.interactionsService.currentQuery = this.interactionsService.legacySites[1].db_queries[1]; // hardcoded
 
-    this.interactionsService.getDBs();
+    // this.interactionsService.getDBs();
     //this.interactionsService.getQuerys();
   }
 }

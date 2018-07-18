@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GridOptions} from 'ag-grid';
 import {InteractionsService} from '../shared/services/interactions/interactions.service';
 
@@ -7,7 +7,7 @@ import {InteractionsService} from '../shared/services/interactions/interactions.
   templateUrl: './query-results.component.html',
   styleUrls: ['./query-results.component.scss']
 })
-export class QueryResultsComponent {
+export class QueryResultsComponent implements OnInit {
 
   gridApi;
   domLayout;
@@ -81,7 +81,11 @@ export class QueryResultsComponent {
 
   constructor(public interactionsService: InteractionsService) {}
 
-  private onGridReady (params) {
+  ngOnInit() {
+    this.interactionsService.getDBs();
+  }
+
+    private onGridReady (params) {
     this.gridApi = params.api;
     return this.gridApi.sizeColumnsToFit();
   }

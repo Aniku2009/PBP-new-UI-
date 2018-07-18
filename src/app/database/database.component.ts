@@ -19,9 +19,12 @@ export class DatabaseComponent {
     this.showQueries = !this.showQueries;
   }
 
-  getInteractions(dbId: number, startDate: Date, endDate: Date) {
-    this.interactionsService.getInteractions(dbId, startDate, endDate);
-  }
+  // // getInteractions(dbId: number, startDate: Date, endDate: Date) {
+  // //   this.interactionsService.getInteractions(dbId, startDate, endDate);
+  // // }
+  // getInteractions(dbId: number, startDate: Date, endDate: Date) {
+  //   this.interactionsService.getInteractions(dbId, startDate, endDate);
+  // }
 
   deleteQuery(dbId: number, queryId: number) {
     this.interactionsService.deleteQueryByDBIdAndQueryId(dbId, queryId);

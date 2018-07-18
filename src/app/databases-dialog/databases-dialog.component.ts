@@ -25,32 +25,32 @@ export class DatabasesDialogComponent implements OnChanges {
   //   widthOfDialog: 420
   // };
 
-  gridHeaders = [
-    {headerName: 'DB NAME', field: 'Db_name'},
-    {headerName: 'DISPLAY NAME', field: 'Display_name'},
-    {headerName: 'STATE', field: 'State'},
-  ];
-
-  gridOptions: GridOptions = {
-    domLayout: 'autoHeight',
-    rowSelection: 'multiple',
-    debug: false,
-    onGridReady: this.onGridReady.bind(this),
-  };
+  // gridHeaders = [
+  //   {headerName: 'DB NAME', field: 'Db_name'},
+  //   {headerName: 'DISPLAY NAME', field: 'Display_name'},
+  //   {headerName: 'STATE', field: 'State'},
+  // ];
+  //
+  // gridOptions: GridOptions = {
+  //   domLayout: 'autoHeight',
+  //   rowSelection: 'multiple',
+  //   debug: false,
+  //   onGridReady: this.onGridReady.bind(this),
+  // };
 
   constructor(public interactionsService: InteractionsService) {
-    console.log('hhhhhhhhhhhhhh');
+    //console.log('hhhhhhhhhhhhhh');
   }
 
   ngOnChanges() {
-    console.log('-------' + this.showDialog);
+    //console.log('-------' + this.showDialog);
     this.dialog.visible = this.showDialog;
   }
 
-  private onGridReady (params) {
-    this.gridApi = params.api;
-    return this.gridApi.sizeColumnsToFit();
-  }
+  // private onGridReady (params) {
+  //   this.gridApi = params.api;
+  //   return this.gridApi.sizeColumnsToFit();
+  // }
 
 }
 

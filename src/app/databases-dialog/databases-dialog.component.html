@@ -9,43 +9,78 @@
         </div>
         <div class="modal-body">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
+
             <li class="nav-item">
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Generic/8.9</a>
             </li>
-            <li class="nav-item">
+
+            <li class="nav-item disabled">
               <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">NIM4.1 Legacy operational</a>
             </li>
-            <li class="nav-item">
+
+            <li class="nav-item disabled">
               <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">NIM4.1 Legacy</a>
             </li>
+
           </ul>
-          <div class="tab-content" id="myTabContent">
+
+          <div class="tab-content" id="myTabContent" *ngIf="interactionsService.legacySites">
             <div class="tab-pane fade active" id="home" role="tabpanel" aria-labelledby="home-tab">
-              <div class="grid-container">
-                <mcr-grid [columnDefs]="gridHeaders"
-                          [rowData]="interactionsService.getRowData()"
-                          [gridOptions]="gridOptions"></mcr-grid>
-              </div>
+
+              <table class="table table-hover table-striped">
+
+                <thead>
+                  <tr>
+                    <th>DB NAME</th>
+                    <th>DISPLAY NAME</th>
+                    <th>STATE</th>
+                    <th></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let db of interactionsService.legacySites">
+                    <td>{{db.db_name}}</td>
+                    <td>{{db.db_display_name}}</td>
+                    <!--<input type="text" ([ngModel])="db.db_display_name"/>-->
+                    <td>{{db.db_state}}</td>
+                    <td>
+                      <button class="btn btn-primary btn-xs" *ngIf="db.db_state === 'unmapped'" (click)="interactionsService.updateDBState('map', db)">Map</button>
+                      <button class="btn btn-primary btn-xs" *ngIf="db.db_state === 'mapped'" (click)="interactionsService.updateDBState('unmap', db)">Unmap</button>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+
+              <!--<div class="grid-container">-->
+                <!--<mcr-grid [columnDefs]="gridHeaders"-->
+                          <!--[rowData]="interactionsService.gridRowData"-->
+                          <!--[gridOptions]="gridOptions"></mcr-grid>-->
+              <!--</div>-->
+
             </div>
-            <!--<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">-->
-              <!--<div class="grid-container">-->
-                <!--<mcr-grid [columnDefs]="gridHeaders"-->
-                          <!--[rowData]="interactionsService.getRowData()"-->
-                          <!--[gridOptions]="gridOptions"></mcr-grid>-->
+
+              <!--<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">-->
+                <!--<div class="grid-container">-->
+                  <!--<mcr-grid [columnDefs]="gridHeaders"-->
+                            <!--[rowData]="interactionsService.getRowData()"-->
+                            <!--[gridOptions]="gridOptions"></mcr-grid>-->
+                <!--</div>-->
               <!--</div>-->
-            <!--</div>-->
-            <!--<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">-->
-              <!--<div class="grid-container">-->
-                <!--<mcr-grid [columnDefs]="gridHeaders"-->
-                          <!--[rowData]="interactionsService.getRowData()"-->
-                          <!--[gridOptions]="gridOptions"></mcr-grid>-->
+              <!--<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">-->
+                <!--<div class="grid-container">-->
+                  <!--<mcr-grid [columnDefs]="gridHeaders"-->
+                            <!--[rowData]="interactionsService.getRowData()"-->
+                            <!--[gridOptions]="gridOptions"></mcr-grid>-->
+                <!--</div>-->
               <!--</div>-->
-            <!--</div>-->
+
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="interactionsService.mapAllDbs()">Map all</button>
-          <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
+          <!--<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="interactionsService.mapAllDbs()">Map all</button>-->
+          <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Close</button>
         </div>
       </div>
 

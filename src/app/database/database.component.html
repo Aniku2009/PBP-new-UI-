@@ -6,7 +6,7 @@
 <div class="db-queries-container" *ngIf="showQueries">
   <div class="db-query"
        *ngFor="let query of database.db_queries, let queryIndex=index"
-       (click)="getInteractions(database.db_id, query.start_date, query.end_date)">{{query.query_name}}
+       (click)="interactionsService.getResults(database, query)">{{query.query_name}}
        <i class="fa fa-times icon icon-delete-query" (click)="deleteQuery(database.db_id, query.query_id)"></i>
     <!--<img class="icon icon-delete-query" src="assets/svgs/delete.svg" alt="Delete query" title="Delete query"
          (click)="deleteQuery(database.db_id, query.query_id)"/>-->
@@ -15,6 +15,6 @@
   <div class="db-query add-query" title="New query" data-toggle="modal" data-target="#queryModal" (click)="CreateNewQuery(database.db_id)">
       New query
     <img class="icon icon-add-query" src="assets/svgs/Plus.svg" alt="New query"/>
-    
+
   </div>
 </div>

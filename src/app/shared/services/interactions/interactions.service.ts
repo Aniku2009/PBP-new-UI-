@@ -15,6 +15,17 @@ import { DatabaseComponent } from '../../../database/database.component';
 
 export class InteractionsService {
 
+  private getHttpOptions(url: string) {
+    return {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': url,
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type,x-requested-with,Authorization,Access-Control-Allow-Origin',
+        'Access-Control-Allow-Credentials': 'true',
+      })
+    };
+  }
+
   public TempDbId: number = null;
   public showNewQueryDialog: boolean = false;
   public showManageDBsDialog: boolean = false;
@@ -22,8 +33,8 @@ export class InteractionsService {
   private loginToken = 'token';
 
   private mockDate = new DatePipe('en').transform(new Date('2018-07-12T00:00:00Z'), 'short');
-   public legacySites: Database[];
-private url = 'http://10.128.33.183:9811/api/LegacySites';
+  public legacySites: Database[];
+  private url = 'http://10.128.33.183:9811/api/LegacySites';
 
   // public legacySites: Database[] = [
   //   {
@@ -54,8 +65,8 @@ private url = 'http://10.128.33.183:9811/api/LegacySites';
   //   { db_id: -1, db_type: '8.9', db_name: 'nice_cls_89', db_display_name:  'Database 56', db_state: 'mapped', db_queries: []},
   // ];
  // public legacySites: Database;
-  public currentDB: Database []; // db for which is result
-  public currentQuery: Query[]; // query for which is result
+  public currentDB: Database; // db for which is result
+  public currentQuery: Query; // query for which is result
 
   public queryResults = [
     {
@@ -203,57 +214,34 @@ private url = 'http://10.128.33.183:9811/api/LegacySites';
       Last_Name: 'Doe'
     }
   ];
+  public gridRowData;
 
   constructor(private http: HttpClient) {
   }
 
 
 
-  getDBs(): Database[]  {
-    this.updateBDs();
-    return this.legacySites;
-  }
-
-  // updateBDs() {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //       'Data-Type': 'json',
-  //       'Access-Control-Allow-Origin': this.url,
-  //       'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
-  //       'Accept': 'application/json'
-  //     })
-  //   };
-  //   console.log(this.url);
-  //   this.http.get(this.url, httpOptions).subscribe(
-  //     (data: Database[]) => {
-  //       this.legacySites = data;
-  //       this.currentDB = data;
-  //       console.log('dddddd');
-  //       console.log(data);
-  //       // return this.legacySites;
-  //     }
-  //   );
-  // }
-
-  updateBDs() {
-
+  getDBs() {
     console.log(this.url);
     this.http.get(this.url).subscribe(
       (data: Database[]) => {
         this.legacySites = data;
-        this.currentDB = data;
-        console.log('dddddd');
+
+        // this.currentDB = data [0];
+        // this.currentQuery = this.currentDB.db_queries[0];
+
+        console.log('Get DB updates completed successfully');
         console.log(data);
-        // return this.legacySites;
+        this.setGridRowData();
       }
     );
   }
 
-  getRowData() {
-    let namesArray = [];
+
+  setGridRowData() { // todo delete
+  this.gridRowData = [];
     this.legacySites.forEach(e => {
-      namesArray.push(
+      this.gridRowData.push(
         {
           Db_name: e.db_name,
           Display_name: e.db_display_name,
@@ -261,7 +249,6 @@ private url = 'http://10.128.33.183:9811/api/LegacySites';
         }
       );
     });
-    return namesArray;
   }
 
 
@@ -370,47 +357,56 @@ private url = 'http://10.128.33.183:9811/api/LegacySites';
     // add query to queries array
   }
 
-  mapAllDbs() {
-    let namesArray = [];
-    this.legacySites.forEach(e => {
-      if (e.db_state === 'unmapped') {
-        e.db_state =  'mapped';
-        e.db_display_name = 'BOA';
-        console.log(e.db_state);
-      }
-    });
-    this.postData1(this.legacySites);
-    this.getDBs();
-  }
+  // mapAllDbs() {  // todo delete
+  //   this.legacySites.forEach(e => {
+  //     if (e.db_state === 'unmapped') {
+  //       e.db_state =  'mapped';
+  //     }
+  //   });
+  //   this.postData(this.legacySites);
+  //   this.getDBs();
+  // }
 
 
-  postData1(postLegacySite: Database[]) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': this.url,
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-        'Access-Control-Allow-Headers': 'Content-Type,x-requested-with,Authorization,Access-Control-Allow-Origin',
-        'Access-Control-Allow-Credentials': 'true',
-        // 'Accept': 'application/json',
-        // 'Content-Type': 'application/json',
-        // 'Data-Type': 'json'
-      })
-    };
-   // const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
-   // let options = new HttpRequest() ({ headers: headers },this.http);
+  postData(postLegacySites: Database[]) { // todo delete
     console.log('post is ready to run');
-    console.log(postLegacySite);
-    console.log(this.url);
-   this.http.post(this.url, postLegacySite, httpOptions)
+    console.log(postLegacySites);
+    this.http.post(this.url, postLegacySites, this.getHttpOptions(this.url))
       .subscribe(
       data => {
         console.log('POST Request is successful', data);
       },
       error => {
         console.log('Error', error);
-      }
-      );
+      });
   }
+
+  updateDBState(actionType: 'map' | 'unmap', db: Database) {
+    console.log('post is ready to run');
+    console.log(db);
+
+    const dbData = {
+      'db_type': db.db_type,
+      'db_name': db.db_name,
+      'db_display_name': db.db_display_name,
+      'db_action_type': actionType
+    };
+
+    this.http.post(this.url, dbData, this.getHttpOptions(this.url))
+      .subscribe(
+        (updatedDB: Database) => {
+          console.log('POST Request is successful', updatedDB);
+          const dbIndex = this.legacySites.indexOf(db);
+          this.legacySites[dbIndex] = updatedDB;
+        },
+      error => {
+        console.log('Error', error);
+      });
+  }
+
+  getResults(db: Database, query: Query) {
+    this.currentDB = db;
+    this.currentQuery = query;
+  }
+
 }
-
-

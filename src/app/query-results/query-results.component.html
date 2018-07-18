@@ -1,22 +1,22 @@
-<div class="query-data">
+<div class="query-data" *ngIf="interactionsService.currentDB">
   <div class="query-data-item">
-    <span class="bold">Database name:</span> {{interactionsService.currentDB [0].db_display_name}}
+    <span class="bold">Database name:</span> {{interactionsService.currentDB.db_display_name}}
   </div>
 
   <div class="query-data-item">
-    <span class="bold">Query name:</span> {{interactionsService.legacySites [0].db_queries [0].query_name}}
+    <span class="bold">Query name:</span> {{interactionsService.currentQuery.query_name}}
   </div>
 
   <div class="query-data-item">
-    <span class="bold">Start time:</span> {{interactionsService.legacySites [0].db_queries [0].start_date}}
+    <span class="bold">Start time:</span> {{interactionsService.currentQuery.start_date}}
   </div>
 
   <div class="query-data-item">
-    <span class="bold">End time:</span> {{interactionsService.legacySites [0].db_queries [0].end_date}}
+    <span class="bold">End time:</span> {{interactionsService.currentQuery.end_date}}
   </div>
 </div>
 
-<div class="grid-container">
+<div class="grid-container" *ngIf="interactionsService.currentQuery">
   <mcr-grid [columnDefs]="gridHeaders"
             [rowData]="interactionsService.queryResults"
             [gridOptions]="gridOptions"></mcr-grid>

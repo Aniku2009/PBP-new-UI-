@@ -44,11 +44,10 @@ export class NewQueryComponent implements OnChanges {
     heightOfDialog: 280,
     widthOfDialog: 420
   }; */
-  
-  constructor(public interactionsService: InteractionsService) {
-    console.log('hhhhhhhhhhhhhh');
 
-   }
+  constructor(public interactionsService: InteractionsService) {
+   // console.log('hhhhhhhhhhhhhh');
+  }
 
   /* addDBQuery(dbId: number, queryName: string, startDate: Date, endDate: Date) {
     this.addDBQuery(dbId, queryName, startDate, endDate);
