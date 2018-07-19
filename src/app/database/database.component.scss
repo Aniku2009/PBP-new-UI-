@@ -47,7 +47,8 @@
       font-size: 16px;
       float: right;
       &:hover {
-        mix-blend-mode: difference;
+        //mix-blend-mode: color;
+        color: #D8143A;
       }
     }
 

@@ -12,7 +12,10 @@
   text-align: left;
   font-size: 18px;
   color: #ffffff;
-  cursor: pointer;
+
+  .db-item {
+    cursor: pointer;
+  }
 
   &:before {
     content: '';
@@ -43,6 +46,7 @@
       background-color: #ffffff;
       color: #2D3E49;
       font-weight: 600;
+      cursor: pointer;
     }
 
     .icon-add-db {

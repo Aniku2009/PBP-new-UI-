@@ -2,7 +2,7 @@
 
   <div *ngFor="let db of interactionsService.legacySites">
     <!--<pbp-database *ngIf="db.db_state === DBState.Mapped"-->
-    <pbp-database *ngIf="db.db_state === 'mapped'"
+    <pbp-database *ngIf="db.db_state === 'mapped'" class="db-item"
                   [database]="db"></pbp-database>
   </div>
 

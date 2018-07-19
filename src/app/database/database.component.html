@@ -7,7 +7,8 @@
   <div class="db-query"
        *ngFor="let query of database.db_queries, let queryIndex=index"
        (click)="interactionsService.getResults(database, query)">{{query.query_name}}
-       <i class="fa fa-times icon icon-delete-query" (click)="deleteQuery(database.db_id, query.query_id)"></i>
+       <i class="fa fa-times icon icon-delete-query" (click)="deleteQuery(database.db_id, query.query_id)"
+          title="Delete query"></i>
     <!--<img class="icon icon-delete-query" src="assets/svgs/delete.svg" alt="Delete query" title="Delete query"
          (click)="deleteQuery(database.db_id, query.query_id)"/>-->
   </div>
